@@ -41,6 +41,10 @@ jobs:
         run: |
           bandit -r . -f json -o bandit.json || true 
       
+      - name: Convert Bandit JSON to SARIF
+        run: |
+          python scripts/bandit_to_sarif.py
+      
       - name: Upload Bandit SARIF results
         uses: github/codeql-action/upload-sarif@v3
         with:
