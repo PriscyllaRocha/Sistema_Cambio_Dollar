@@ -39,7 +39,13 @@ jobs:
 
       - name: Run Bandit
         run: |
-          bandit -r . || true 
+          bandit -r . -f json -o bandit.json || true 
+      
+      - name: Upload Bandit SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: bandi-results.sarif
+
       - name: Start Django development server
         run: |
           python manage.py migrate 
