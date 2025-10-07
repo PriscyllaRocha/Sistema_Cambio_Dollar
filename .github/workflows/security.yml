@@ -3,6 +3,10 @@ on:
     branches:
       - '*'
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   security:
     name: Security Scan
@@ -29,6 +33,9 @@ jobs:
         with:
           scan-type: 'fs'
           scan-ref: '.'
+          format: 'sarif'
+          limit-severities-for-sarif: false
+          output: 'trivy-results.sarif'
 
       - name: Run Bandit
         run: |
